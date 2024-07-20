@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="content">
+    <div class="main-content">
+
+        <div class="page-content" style="margin-left:40px;">
+            <div class="container-fluid">
+                <br>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card " style="background:#17a2b8;width:350px;">
+                            <div class="card-body">
+
+                                <p class="card-text"><span style="font-size:46px;color: white;">{{ total_vehicle_count }}</span>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <span
+                                            style="color: white;font-size: 46px;"><i
+                                            class="bi bi-p-square-fill"></i></span>
+                                    <br>
+                                    <span class="fw-medium" style="color:white"> Vehicles Parked</span></p>
+
+                            </div>
+                            <div class="col-xl-6">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4">
+                        <div class="card " style="background:#343a40;width:350px;">
+                            <div class="card-body">
+                                <p class="card-text"><span style="font-size:46px;color: white;">{{ departed_count }}</span><span
+                                        style="font-size:46px;color: white;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i
+                                        class="bi bi-car-front-fill"></i></span><br><span class="fw-medium"
+                                                                                          style="color:white"> Departed Veichle</span>
+                                </p>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                     <div class="col-xl-4">
+                        <div class="card " style="background:#dc3545;width:350px;">
+                            <div class="card-body">
+                                <p class="card-text"><span style="font-size:46px;color: white;">{{ total_vehicle_count }}</span><span
+                                        style="font-size:46px;color: white;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <i class="bi bi-box2-fill"></i></span><br><span class="fw-medium"
+                                                                                          style="color:white"> Available Category</span>
+                                </p>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                   <div class="col-xl-4">
+                        <div class="card " style="background:#ffc107;;width:350px;">
+                            <div class="card-body">
+                                <p class="card-text"><span style="font-size:36px;color: white;">{{ overall_total_charge }}</span><span
+                                        style="font-size:46px;color: white;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <i class="bi bi-currency-rupee"></i>
+</span><br><span class="fw-medium"
+                                                                                          style="color:white"> Total Earning</span>
+                                </p>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4">
+                        <div class="card " style="background:#666b6f;width:350px;">
+                            <div class="card-body">
+                                <p class="card-text"><span style="font-size:46px;color: white;">3&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <i class="bi bi-stack"></i>
+</span><br><span class="fw-medium" style="color:white"> Total Records</span></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-4">
+                        <div class="card " style="background: #077bf8;width:350px;">
+                            <div class="card-body">
+                                <p class="card-text"><span style="font-size:46px;color: white;">{{ total_vehicle_limit }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<i class="bi bi-check-all"></i></span><br><span class="fw-medium" style="color:white"> Total Parking Slots</span></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+
+</div>
+
+
+
+        <style>
+            body {
+          display: flex;
+
+
+          height: 100vh;
+          margin: 0;
+        }
+
+        .card {
+          width: 400px;
+          height: 120px;
+          background-color: ; /* Card background color */
+          transition: transform 0.3s ease-in-out; /* Smooth transition for animation */
+        }
+
+        .card:hover {
+          transform: scale(1.1); /* Scale up the card on hover */
+        }
+        </style>
+        {% endblock %}

@@ -1,0 +1,65 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #34373b;
+    color: #fff;
+    padding: 30px;
+    position:fixed; /* Make the navbar fixed */
+    top: 0; /* Position it at the top of the viewport */
+    width: 100%; /* Make it full width */
+    z-index: 100; /* Ensure it's above other content */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Content Styles */
+.content {
+    margin-top: 60px; /* Add margin to content to prevent overlap with the fixed navbar */
+    padding: 20px;
+}
+
+/* Vertical Navbar Styles */
+.vertical-navbar {
+    background-color: #34373b;
+    color: #fff;
+    width: 200px;
+    padding: 50px;
+    position: fixed; /* Make the vertical navbar fixed */
+    top: 0; /* Position it at the top of the viewport */
+    left: 0; /* Position it at the left side of the viewport */
+    bottom: 0; /* Extend it to the bottom of the viewport */
+}
+
+.vertical-navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.vertical-navbar li {
+    margin-bottom: 10px;
+}
+
+.vertical-navbar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Content Styles */
+.content {
+    margin-left: 220px; /* Add margin to content to prevent overlap with the fixed vertical navbar */
+    padding: 20px;
+}

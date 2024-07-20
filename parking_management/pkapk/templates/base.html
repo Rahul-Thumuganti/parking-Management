@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css"> <!-- Create a CSS file for styling -->
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <script defer src="script.js">  </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    </head>
+<body>
+
+<nav class="navbar" style="position: fixed;padding: 17px;">
+    <ul>
+
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h4><i aria-hidden="true" class="fa fa-car"
+                                                            style="font-size: 30px;"></i>&nbsp&nbspSMPS Panel</h4>
+    </ul>
+    <button class="btn btn-primary" type="button"><i class="fa fa-power-off"></i>&nbspLogout</button>
+
+</nav>
+<br>
+<br>
+<br>
+<nav class="vertical-navbar" style="width: 270px;">
+    <ul class="navbar-nav" id="navbar-nav">
+        <br>
+        <br>
+
+        <a class="nav-link menu-link" href="{% url 'dashboard'%}">
+            <i aria-hidden="true" class="fa fa-tachometer"></i> <span data-key="t-dashboards">Dashboard</span>
+        </a>
+
+
+        <a class="nav-link menu-link" href="{% url 'showvehicle' %}">
+            <i aria-hidden="true" class="fa fa-th-large"></i>&nbsp<span data-key="t-dashboards">Category</span>
+        </a>
+
+        <a class="nav-link menu-link" href="{% url 'vehicle_entry'%}">
+            <i aria-hidden="true" class="fa fa-share-square-o"></i>&nbsp<span
+                data-key="t-dashboards">Vehicle Entry</span>
+        </a>
+
+        <a class="nav-link menu-link" href="{% url 'managevehicle'%}">
+            <i aria-hidden="true" class="fa fa-align-justify"></i>&nbsp<span
+                data-key="t-dashboards">Manage Vehicle</span>
+        </a>
+
+        <a class="nav-link menu-link" href="{% url 'report'%}">
+            <i aria-hidden="true" class="fa fa-line-chart"></i>&nbsp <span data-key="t-dashboards">Reports</span>
+        </a>
+
+        <a class="nav-link menu-link" href="{% url 'searchvehicle'%}">
+            <i aria-hidden="true" class="fa fa-search"></i> &nbsp<span data-key="t-dashboards">Search</span>
+        </a>
+
+        <a class="nav-link menu-link" href="{% url 'accountsetting'%}">
+            <i aria-hidden="true" class="fa fa-cog"></i>&nbsp<span data-key="t-dashboards">Account Setting</span>
+        </a>
+
+          <a href="{% url 'logout' %}">
+            <i aria-hidden="true" class="fa fa-power-off"></i> <span data-key="t-dashboards">Logout</span>
+        </a>
+
+
+    </ul>
+</nav>
+
+
+<!-- <div class="vertical-overlay"></div>
+-->
+<!-- Content with Scrollbar -->
+
+<style>
+    /* Navbar Styles */
+.navbar {
+    background-color: #34373b;
+    color: #fff;
+    padding: 30px;
+    position:fixed; /* Make the navbar fixed */
+    top: 0; /* Position it at the top of the viewport */
+    width: 100%; /* Make it full width */
+    z-index: 100; /* Ensure it's above other content */
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Content Styles */
+.content {
+    margin-top: 60px; /* Add margin to content to prevent overlap with the fixed navbar */
+    padding: 20px;
+}
+
+/* Vertical Navbar Styles */
+.vertical-navbar {
+    background-color: #34373b;
+    color: #fff;
+    width: 200px;
+    padding: 50px;
+    position: fixed; /* Make the vertical navbar fixed */
+    top: 0; /* Position it at the top of the viewport */
+    left: 0; /* Position it at the left side of the viewport */
+    bottom: 0; /* Extend it to the bottom of the viewport */
+}
+
+.vertical-navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.vertical-navbar li {
+    margin-bottom: 10px;
+}
+
+.vertical-navbar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Content Styles */
+.content {
+    margin-left: 220px; /* Add margin to content to prevent overlap with the fixed vertical navbar */
+    padding: 20px;
+}
+
+</style>
+<script>
+    $(document).ready(function(){
+	$('#example').DataTable();
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+{% block content %}
+
+
+{% endblock %}
+</body>
+</html>

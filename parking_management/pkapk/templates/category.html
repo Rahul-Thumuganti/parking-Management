@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="content">
+    <div class="main-content">
+
+        <div class="page-content" style="margin-left:0px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="card" style="width: 700px;margin-left:65px;">
+                            <div class="card-header">
+
+                                <i aria-hidden="true" class="fa fa-cog"></i> Add Category
+                            </div>
+
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <form action="{% url 'addcategory' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="parking_area_no">Parking Area Number</label>
+                                                <input class="form-control" id="parking_area_no" name="parking_area_no" required type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                         <label for="vehicle_type">Vehicle Type:</label>
+                                    <input  class="form-control" type="text" id="vehicle_type" name="vehicle_type" required>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="vehicle_limit">Vehicle Limit</label>
+                                    <input class="form-control" id="vehicle_limit" name="vehicle_limit" placeholder=""
+                                           required type="text">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="parking_charge">Parking Charge</label>
+                                    <input class="form-control" id="parking_charge" name="parking_charge" placeholder=""
+                                           required type="text">
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </div>
+
+                                </form>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <div class="card" style="width: 300px;height:470px;">
+
+                            <div class="card-header">
+
+                                <i aria-hidden="true" class="fa fa-cog"></i> Details
+                            </div>
+
+                            <div class="card-body">
+                                <div class="mb-5">
+                                    <table class="table">
+                                        <tr>
+                                {% for Category in category %}
+                                <td class="customer_name">{{ forloop.counter }}</td>
+
+                                <td class="name">{{ Category.vehicle_type }}</td>
+                                <td class="name">{{ Category.parking_charge }}</td>
+
+
+
+                            </tr>
+                            {% endfor %}
+                                    </table>
+                                     <div class="row m-5 justify-content-between">
+    <div class="col-md-6">
+        <!-- Pagination -->
+        {% if category.has_other_pages %}
+        <ul class="pagination justify-content-center" style="margin-left:60px;">
+            {% if category.has_previous %}
+            <li class="page-item">
+                <a href="?page={{category.previous_page_number}}"><span class="page-link">Previous</span></a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            {% endif %}
+
+            <!-- Current Page Number -->
+            <li class="page-item">
+                <span class="page-link">{{ category.number }}</span>
+            </li>
+
+            <!-- Next -->
+            {% if category.has_next %}
+            <li class="page-item">
+                <a href="?page={{category.next_page_number}}"><span class="page-link">Next</span></a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+
+</div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+
+
+
+
+
+                <div class="container mt-5" style="margin-left:0px;">
+    <div class="col-md-lg">
+        <div class="card" style="margin-left:50px;">
+            <div class="card-header">
+                 <label> <i aria-hidden="true" class="fa fa-cog"></i>&nbspManage Category</label>
+            </div>
+            <div class="card-body">
+                <br>
+
+                    <table id="example" class="table table-striped table-bordered" >
+                        <thead>
+                         <tr class="text-center">
+                                <th class="sort" data-sort="customer_name">#</th>
+                                <th class="sort" data-sort="name"> Add Number</th>
+                                <th class="sort" data-sort="status">Vehicle Type</th>
+                                <th class="sort" data-sort="action">Vehicle limit</th>
+                                <th class="sort" data-sort="action">Charge</th>
+                                <th class="sort" data-sort="action">Status</th>
+                                <th class="sort" data-sort="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         <tr>
+                                {% for Category in category %}
+                                <td class="customer_name">{{ forloop.counter }}</td>
+                                <td class="name">{{ Category.parking_area_no }}</td>
+                                <td class="name">{{ Category.vehicle_type }}</td>
+                                <td class="name">{{ Category.vehicle_limit }}</td>
+                                <td class="name">{{ Category.parking_charge }}</td>
+
+                                                               <td class="status">
+                                    {% if Category.status %}
+                                    <span class="btn btn-success btn-sm">Activated</span>
+                                    {% else %}
+                                    <span class="btn btn-danger btn-sm">Deactivated</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                             <div class="status">
+          <form action="{% if Category.status %}{% url 'deactivate_item' Category.id %}{% else %}{% url 'activate_item' Category.id %}{% endif %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-sm {% if Category.status %}btn-danger{% else %}btn-success{% endif %}" type="submit">
+                    {% if Category.status %}Deactivate{% else %}Activate{% endif %}
+                </button>
+            </form>
+                             </div>
+
+                                    <button class="btn" data-bs-target="#editData-{{forloop.counter}}"
+                                            data-bs-toggle="modal"
+                                            data-bs-whatever="Mary" style="background-color: #0a42aa; color: white;"
+                                            type="button">
+                                        <svg class="bi bi-pencil-square" fill="currentColor" height="16"
+                                             viewBox="0 0 16 16"
+                                             width="16" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                                                  fill-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                    <button class="btn" data-bs-target="#deleteData-{{forloop.counter}}"
+                                            data-bs-toggle="modal"
+                                            data-bs-whatever="Mary" style=" background-color:#d11d26; color:white;"
+                                            type="button">
+                                        <svg class="bi bi-trash-fill" fill="currentColor" height="16"
+                                             viewBox="0 0 16 16"
+                                             width="16" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                        </svg>
+                                    </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+                    <br>
+                    <br>
+                     <footer class="footer" style="background: #d3d3d3;height: 50px;margin-right: 40px;width: 1415px;margin-bottom;opx;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write</script>Parking Management System
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Design & Develop by RamanaSoft
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+</div>
+
+
+
+
+
+
+
+
+                {% for j in category %}
+                <div class="modal fade" id="deleteData-{{forloop.counter}}">
+                    <div class="modal-dialog  modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #b22222 ; padding: 2%">
+                                <h4 class="modal-title text-white">Delete Details</h4>
+                                <button aria-label="close" class="btn-close" data-bs-dismiss="modal"
+                                        type="button"></button>
+                            </div>
+                            <div align="center" class="modal-body">
+                                <h4>Do You Want To Delete This Record</h4>
+                                <br>
+                                <a class="btn btn-danger" href="{% url 'deletevehicle' j.pk %}">Delete</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+{% for b in category %}
+
+<div class="modal fade" id="editData-{{forloop.counter}}">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'update' b.id %}">
+                {% csrf_token %}
+            <div class="modal-header" style="background-color: #1e90ff ; padding: 2%">
+                <h4 class="modal-title">Edit Vehicle Details</h4>
+                <button aria-label="close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+
+                                            <label class="form-label" for="parking_area_no" >Parking Area
+                                                Number</label>
+                                            <input class="form-control" id="parking_area_no"
+                                                    name="parking_area_no" type="text" value="{{b.parking_area_no}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="vehicle_type">Vehicle type</label>
+                                            <input class="form-control" id="vehicle_type" name="vehicle_type" placeholder=""
+                                                   type="text" value="{{ b.vehicle_type }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="vehicle_limit" >Vehicle Limit</label>
+                                    <input class="form-control" id="vehicle_limit" name="vehicle_limit" placeholder=""
+                                           type="text" value="{{ b.vehicle_limit  }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="parking_charge">Parking Charge</label>
+                                    <input class="form-control" id="parking_charge" name="parking_charge" placeholder=""
+                                           type="text" value="{{ b.parking_charge }}">
+                                </div>
+                                <div align="center">
+                                    <button class="btn btn-primary" type="submit" value="edit">submit</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+        </div>
+
+
+        {% endfor %}
+
+ <script>
+    $(document).ready(function(){
+	$('#example').DataTable();
+});
+</script>
+
+
+        {% endblock %}

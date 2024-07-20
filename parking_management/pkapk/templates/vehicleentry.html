@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+    <div class="main-content">
+
+        <div class="page-content" style="margin-left:70px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="card" style="width: 600px;">
+                            <div class="card-header">
+
+                                <i aria-hidden="true" class="fa fa-cog"></i> Add Vehicle
+                            </div>
+
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <form action="{% url 'addvehicle' %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="vehicle_no">Vehicle Number
+                                                        Number</label>
+                                                    <input class="form-control" id="vehicle_no" name="vehicle_no"
+                                                           placeholder=""
+                                                           required type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="vehicle_type">Vehicle Type</label>
+                                                    <select aria-label="Default select example" class="form-select mb-3"
+                                                            id="vehicle_type" name="vehicle_type" required>
+                                                        <option value="">Select Vehicle Type</option>
+                                                        {% for type in display %}
+                                                        <option value="{{ type.pk }}">{{type.vehicle_type}}</option>
+                                                        {% endfor %}
+                                                    </select>
+
+                                                    </div>
+                                            </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label" for="parking_area_no">Parking Area Number</label>
+                                            <select aria-label="Default select example" class="form-select mb-3"
+                                                    id="parking_area_no" name="parking_area_no" required>
+                                                <option value="">Select Parking Area Number</option>
+                                                {% for A in display %}
+                                                <option value="{{ A.pk }}">{{ A.parking_area_no }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="parking_charge">Parking Charge</label>
+                                                <select aria-label="Default select example" class="form-select mb-3"
+                                                        id="parking_charge" name="parking_charge" required>
+                                                    <option value="">Select Parking Charge</option>
+                                                    {% for C in display %}
+                                                    <option value="{{ C.parking_charge }}">{{C.parking_charge}}
+                                                    </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="d-grid gap-2">
+                                                <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <div class="card" style="width: 340px;">
+
+                            <div class="card-header">
+
+                                <i aria-hidden="true" class="fa fa-cog"></i> Vehicle limitations
+                            </div>
+
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <table class="table">
+
+
+                                        <tr>
+                                            {% for b in category %}
+                                            <td scope="row">{{ forloop.counter }}</td>
+                                            <td class="name">{{ b.vehicle_type }}</td>
+                                            <td class="name">{{ b.vehicle_limit }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container mt-5" style="margin-left:0px;width:2000px;">
+                <div class="col-md-lg">
+                    <div class="card">
+                        <div class="card-header">
+                            <label> Current Vehicle</label>
+                        </div>
+                        <div class="card-body">
+                            <br>
+
+
+                            <table id="example"  class="table table-striped table-bordered"  style="width: 1070px;margin-right:10px;">
+                                <thead class="table" class="text-center"
+                                       style="background-color: #132649; color:white;">
+                                <tr class="text-center">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Vehicle Number</th>
+                                    <th scope="col">Area Number</th>
+                                    <th scope="col">Arrivel Time</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody align="center" class="list form-check-all">
+                                <tr>
+
+                                    {% for v in vehicle_entry_data %}
+                                    <td scope="row">{{ forloop.counter }}</td>
+                                    <td>{{ v.vehicle_no }}</td>
+                                    <td>{{ v.parking_area_no }}</td>
+
+                                    <td >{{ v.arrival_time }}</td>
+                                    <td>
+                                    <form action="{% url 'togglestatus' v.id %}" method="post">
+    {% csrf_token %}
+    <button class="btn btn-sm {% if v.status %}btn-success{% else %}btn-primary{% endif %}" type="submit">
+        {% if v.status %}Leaved{% else %}Parked{% endif %}
+    </button>
+</form>
+                                    </td>
+                                    <td>
+                                        <a > <button class="btn btn-outline-primary" type="button">Receipt</button></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="row m-5 justify-content-between">
+                                <div class="col-md-6 text-left">
+                                    <!-- Showing results -->
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+    $('#example').DataTable();
+    });
+</script>
+
+{% endblock %}

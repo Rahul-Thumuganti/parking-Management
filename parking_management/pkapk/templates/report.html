@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+    <div class="main-content">
+
+        <div class="page-content" style="margin-left:60px;">
+            <div class="container-fluid">
+
+                <div class="card">
+                    <div class="card-header">
+
+
+                        <i aria-hidden="true" class="fa fa-cog"></i>&nbspVehicle Report
+                    </div>
+                    <div class="card-body">
+                        <br>
+                        <table class="table table-striped table-bordered" id="example"
+                               style="width: 1090px;margin-left: 0px;">
+                            <thead class="table" class="text-center" style="background-color: #132649; color:white;">
+                            <tr class="text-center">
+                                <th class="sort" data-sort="customer_name">#</th>
+                                <th class="sort" data-sort="name">Vehicle Number</th>
+                                <th class="sort" data-sort="action">Vehicle Type</th>
+                                <th class="sort" data-sort="action">Area Number</th>
+                                <th class="sort" data-sort="action">Charge</th>
+                                <th class="sort" data-sort="action">Arrivel Time</th>
+                                <th class="sort" data-sort="action">Status</th>
+
+                            </tr>
+                            </thead>
+                            <tbody align="center" class="list form-check-all">
+                            <tr>
+
+                      {% for a in v_data %}
+<tr>
+    <td scope="row">{{ forloop.counter }}</td>
+    <td class="name">{{ a.vehicle_no }}</td>
+    <td class="name">{{ a.vehicle_type }}</td>
+    <td class="name">{{ a.parking_area_no }}</td>
+    <td class="name">{{ a.parking_charge }}</td>
+    <td class="name">{{ a.arrival_time|date:"D, d M Y H:i:s" }}</td>
+   <td class="status">
+                               <form action="{% url 'togglestatus' a.id %}" method="post">
+    {% csrf_token %}
+    <button class="btn btn-sm {% if a.status %}btn-success{% else %}btn-primary{% endif %}" type="submit">
+        {% if a.status %}Leaved{% else %}Parked{% endif %}
+    </button>
+</form>
+
+                            </td>
+
+</tr>
+{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function(){
+	$('#example').DataTable();
+});
+</script>
+
+{% endblock %}
